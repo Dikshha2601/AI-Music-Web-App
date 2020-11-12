@@ -60,24 +60,37 @@ function draw() {
 
     document.getElementById("result").innerHTML =
       "Song name is 'Can't stop the feeling!' ";
-    song_final = cstfl;
-    play();
+    utfup.stop();
+    if (cstfl.isPlaying() == false) {
+      cstfl.play();
+      song_final = cstfl;
+    }
   }
   if (scoreRightWrist > 0.2) {
     circle(rightWristX - 10, rightWristY - 10, 20);
 
     document.getElementById("result").innerHTML =
       "Song name is 'Up town funk you up' ";
-    song_final = utfup;
-    play();
+    cstfl.stop();
+    if (utfup.isPlaying() == false) {
+      utfup.play();
+      song_final = utfup;
+    }
   }
 }
 
 function play() {
-  song_final.stop();
-  song_final.play();
+  switch (song_final) {
+    case cstfl:
+      utfup.stop();
+      cstfl.play();
+    case utfup:
+      cstfl.stop();
+      utfup.play();
+  }
 }
 
 function stop() {
-  song_final.stop();
+  cstfl.stop();
+  utfup.stop();
 }
